@@ -10,9 +10,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class BinarySearchTest {
-	int size = 2147483640;
-	//int size = 200;
-	int [] aa = new int[size];
+	int size;
+	int [] aa;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -24,6 +23,9 @@ public class BinarySearchTest {
 
 	@Before
 	public void setUp() throws Exception {
+		size = 100;
+		aa = new int[size];
+		
 		for (int i = 0; i < size; i++){
 			aa[i] = i;
 		}
@@ -33,21 +35,21 @@ public class BinarySearchTest {
 	public void tearDown() throws Exception {
 		aa = null;
 	}
-/*
+
 	@Test
 	public void testSmallestValue() {
 		int index = 0;
 		int result = BinarySearch.binarySearch(aa, aa[index]);
 		assertEquals(index, result);
 	}
-*/	
+	
 	@Test
 	public void testBiggestValue() {
 		int index = size-1;
 		int result = BinarySearch.binarySearch(aa, aa[index]);
 		assertEquals(index, result);
 	}
-/*	
+	
 	@Test
 	public void testOddIndex() {
 		int index = 1;
@@ -62,11 +64,13 @@ public class BinarySearchTest {
 		assertEquals(index, result);
 	}
 	
-	@Ignore("Provide specific no match value")
 	@Test
 	public void testNonExistingValueWithinRange() {
-		int result = BinarySearch.binarySearch(aa, 200);
+		int[] bb = {2, 45, 101, 234, 754, 1000, 1231};
+		
+		int result = BinarySearch.binarySearch(bb, 200);
 		assertTrue("Result is expected to be a negative value", result < 0);
+		bb = null;
 	}
 	
 	@Test
@@ -80,5 +84,21 @@ public class BinarySearchTest {
 		int result = BinarySearch.binarySearch(aa, size);
 		assertTrue("Result is expected to be a negative value", result < 0);
 	}
-*/
+	
+	//@Ignore
+	//@Test(expected = IndexOutOfBoundsException.class)
+	@Test
+	public void testOverFlow() {
+		size = 2147483640;
+		aa = new int[size];
+		
+		for (int i = 0; i < size; i++){
+			aa[i] = i;
+		}
+		
+		int index = size-1;
+		int result = BinarySearch.binarySearch(aa, aa[index]);
+		assertEquals(index, result);
+	}
+
 }
