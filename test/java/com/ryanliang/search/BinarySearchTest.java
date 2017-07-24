@@ -23,7 +23,7 @@ public class BinarySearchTest {
 
 	@Before
 	public void setUp() throws Exception {
-		size = 100;
+		size = 20;
 		aa = new int[size];
 		
 		for (int i = 0; i < size; i++){
@@ -99,6 +99,36 @@ public class BinarySearchTest {
 		int index = size-1;
 		int result = BinarySearch.binarySearch(aa, aa[index]);
 		assertEquals(index, result);
+	}
+	
+	@Test
+	public void testUnsortedArray() {
+	
+	}
+	
+	@Test
+	public void testSizeZeroArray() {
+	
+	}
+	
+	@Test
+	public void testSizeOneArray() {
+	
+	}
+	
+	@Test
+	public void testSizeTwoArray() {
+	
+	}
+
+	@Test
+	public void testSizeThreeArray() {
+	
+	}
+
+	@Test
+	public void testSizeFourArray() {
+	
 	}
 
 }
