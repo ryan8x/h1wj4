@@ -89,7 +89,8 @@ public class BinarySearchTest {
 	//@Test(expected = IndexOutOfBoundsException.class)
 	@Test
 	public void testOverFlow() {
-		size = 2147483640;
+	  //size = 2147483640;
+		size = 1431655770;
 		aa = new int[size];
 		
 		for (int i = 0; i < size; i++){
