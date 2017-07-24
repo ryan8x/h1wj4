@@ -86,7 +86,6 @@ public class BinarySearchTest {
 	}
 	
 	//@Ignore
-	//@Test(expected = IndexOutOfBoundsException.class)
 	@Test
 	public void testOverFlow() {
 	  //size = 2147483640;
@@ -96,14 +95,27 @@ public class BinarySearchTest {
 		for (int i = 0; i < size; i++){
 			aa[i] = i;
 		}
-		
+
 		int index = size-1;
-		int result = BinarySearch.binarySearch(aa, aa[index]);
-		assertEquals(index, result);
+
+		try{
+			int result = BinarySearch.binarySearch(aa, aa[index]);
+			assertEquals(index, result);
+		}
+		catch(IndexOutOfBoundsException e){
+			e.printStackTrace();
+			fail("IndexOutOfBoundsException is caught.");
+		}
+
 	}
 	
 	@Test
 	public void testUnsortedArray() {
+	
+	}
+	
+	@Test
+	public void testArrayWithDuplicatedValues() {
 	
 	}
 	
@@ -129,6 +141,11 @@ public class BinarySearchTest {
 
 	@Test
 	public void testSizeFourArray() {
+	
+	}
+	
+	@Test
+	public void testSizeFiveArray() {
 	
 	}
 
