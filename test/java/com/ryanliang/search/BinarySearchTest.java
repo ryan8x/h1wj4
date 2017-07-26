@@ -110,43 +110,68 @@ public class BinarySearchTest {
 	}
 	
 	@Test
-	public void testUnsortedArray() {
-	
-	}
-	
-	@Test
-	public void testArrayWithDuplicatedValues() {
-	
-	}
-	
-	@Test
-	public void testSizeZeroArray() {
-	
-	}
-	
-	@Test
 	public void testSizeOneArray() {
-	
+		int[] bb = {1};
+		int result;
+		
+		for (int i = 0; i < bb.length; i++){
+			result = BinarySearch.binarySearch(bb, bb[i]);
+			assertEquals(i, result);
+		}
+		
+		bb = null;
 	}
 	
 	@Test
 	public void testSizeTwoArray() {
-	
+		int[] bb = {1,2};
+		int result;
+		
+		for (int i = 0; i < bb.length; i++){
+			result = BinarySearch.binarySearch(bb, bb[i]);
+			assertEquals(i, result);
+		}
+		
+		bb = null;
 	}
 
 	@Test
 	public void testSizeThreeArray() {
-	
+		int[] bb = {1,2,3};
+		int result;
+		
+		for (int i = 0; i < bb.length; i++){
+			result = BinarySearch.binarySearch(bb, bb[i]);
+			assertEquals(i, result);
+		}
+		
+		bb = null;
 	}
 
 	@Test
 	public void testSizeFourArray() {
-	
+		int[] bb = {1,2,3,4};
+		int result;
+		
+		for (int i = 0; i < bb.length; i++){
+			result = BinarySearch.binarySearch(bb, bb[i]);
+			assertEquals(i, result);
+		}
+		
+		bb = null;
 	}
 	
 	@Test
 	public void testSizeFiveArray() {
-	
+		int[] bb = {1,2,3,4,5};
+		int result;
+		
+		for (int i = 0; i < bb.length; i++){
+			result = BinarySearch.binarySearch(bb, bb[i]);
+			assertEquals(i, result);
+		}
+		
+		bb = null;
 	}
 
 }
