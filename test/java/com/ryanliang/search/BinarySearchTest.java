@@ -102,9 +102,9 @@ public class BinarySearchTest {
 			int result = BinarySearch.binarySearch(aa, aa[index]);
 			assertEquals(index, result);
 		}
-		catch(IndexOutOfBoundsException e){
+		catch(ArrayIndexOutOfBoundsException e){
 			e.printStackTrace();
-			fail("IndexOutOfBoundsException is caught.");
+			fail("ArrayIndexOutOfBoundsException is caught.");
 		}
 
 	}
