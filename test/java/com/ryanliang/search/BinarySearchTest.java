@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Ryan L.
+ */
+
 package com.ryanliang.search;
 
 import static org.junit.Assert.*;
@@ -11,8 +16,8 @@ import org.junit.Test;
 
 public class BinarySearchTest {
 	int size;
-	int [] aa;
-	
+	int [] ArrayA1;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -23,83 +28,40 @@ public class BinarySearchTest {
 
 	@Before
 	public void setUp() throws Exception {
-		size = 20;
-		aa = new int[size];
-		
-		for (int i = 0; i < size; i++){
-			aa[i] = i;
-		}
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		aa = null;
+		ArrayA1 = null;
 	}
 
-	@Test
-	public void testSmallestValue() {
-		int index = 0;
-		int result = BinarySearch.binarySearch(aa, aa[index]);
-		assertEquals(index, result);
+	private void initializeArrayA1() {
+		size = 20;
+		ArrayA1 = new int[size];
+
+		for (int i = 0; i < size; i++){
+			ArrayA1[i] = i;
+		}
 	}
-	
-	@Test
-	public void testBiggestValue() {
-		int index = size-1;
-		int result = BinarySearch.binarySearch(aa, aa[index]);
-		assertEquals(index, result);
-	}
-	
-	@Test
-	public void testOddIndex() {
-		int index = 1;
-		int result = BinarySearch.binarySearch(aa, aa[index]);
-		assertEquals(index, result);
-	}
-	
-	@Test
-	public void testEvenIndex() {
-		int index = 2;
-		int result = BinarySearch.binarySearch(aa, aa[index]);
-		assertEquals(index, result);
-	}
-	
-	@Test
-	public void testNonExistingValueWithinRange() {
-		int[] bb = {2, 45, 101, 234, 754, 1000, 1231};
-		
-		int result = BinarySearch.binarySearch(bb, 200);
-		assertTrue("Result is expected to be a negative value", result < 0);
-		bb = null;
-	}
-	
-	@Test
-	public void testNonExistingValueOutsideOfSmallestValue() {
-		int result = BinarySearch.binarySearch(aa, -100000);
-		assertTrue("Result is expected to be a negative value", result < 0);
-	}
-	
-	@Test
-	public void testNonExistingValueOutsideOfBiggestValue() {
-		int result = BinarySearch.binarySearch(aa, size);
-		assertTrue("Result is expected to be a negative value", result < 0);
-	}
-	
-	//@Ignore
+
+	/*
+	 * Ensure searching still work when array size is very big.
+	 */
 	@Test
 	public void testOverFlow() {
-	  //size = 2147483640;
-		size = 1431655770;
-		aa = new int[size];
-		
+		//size = 1431655770;
+		size = Integer.MAX_VALUE/2 + 2;  //Minimum array size needed to cause potential integer overflow for binarySearch().
+		ArrayA1 = new int[size];
+
 		for (int i = 0; i < size; i++){
-			aa[i] = i;
+			ArrayA1[i] = i;
 		}
 
 		int index = size-1;
 
 		try{
-			int result = BinarySearch.binarySearch(aa, aa[index]);
+			int result = BinarySearch.binarySearch(ArrayA1, ArrayA1[index]);
 			assertEquals(index, result);
 		}
 		catch(ArrayIndexOutOfBoundsException e){
@@ -108,70 +70,135 @@ public class BinarySearchTest {
 		}
 
 	}
-	
+
+	/*
+	 * Search for smallest element value in the array.
+	 */
+	@Test
+	public void testSmallestArrayElementValue() {
+		initializeArrayA1();
+		int index = 0;
+		int result = BinarySearch.binarySearch(ArrayA1, ArrayA1[index]);
+		assertEquals(index, result);
+	}
+
+	/*
+	 * Search for biggest element value in the array.
+	 */
+	@Test
+	public void testBiggestArrayElementValue() {
+		initializeArrayA1();
+		int index = size-1;
+		int result = BinarySearch.binarySearch(ArrayA1, ArrayA1[index]);
+		assertEquals(index, result);
+	}
+
+	/*
+	 * Search for element value in the array with an odd index.
+	 */
+	@Test
+	public void testOddIndex() {
+		initializeArrayA1();
+		int index = 1;
+		int result = BinarySearch.binarySearch(ArrayA1, ArrayA1[index]);
+		assertEquals(index, result);
+	}
+
+	/*
+	 * Search for element value in the array with an even index.
+	 */
+	@Test
+	public void testEvenIndex() {
+		initializeArrayA1();
+		int index = 2;
+		int result = BinarySearch.binarySearch(ArrayA1, ArrayA1[index]);
+		assertEquals(index, result);
+	}
+
+	/*
+	 * Search for element value that does not exist in the array.
+	 */
+	@Test
+	public void testNonExistingArrayElement1() {
+		ArrayA1 = new int[]{2, 45, 101, 234, 754, 1000, 1231};
+
+		int result = BinarySearch.binarySearch(ArrayA1, 200);
+		assertTrue("Result is expected to be a negative value", result < 0);
+	}
+
+	/*
+	 * Search for element value that does not exist in the array.
+	 */
+	@Test
+	public void testNonExistingArrayElementValue2() {
+		initializeArrayA1();
+		int result = BinarySearch.binarySearch(ArrayA1, -100);
+		assertTrue("Result is expected to be a negative value", result < 0);
+	}
+
+	/*
+	 * Search for element value that does not exist in the array.
+	 */
+	@Test
+	public void testNonExistingArrayElementValue3() {
+		initializeArrayA1();
+		int result = BinarySearch.binarySearch(ArrayA1, size+100);
+		assertTrue("Result is expected to be a negative value", result < 0);
+	}
+
+	private void testArraySizeHelper(int arraySize) {
+		ArrayA1 = new int[arraySize];
+
+		for (int i = 0; i < arraySize; i++){
+			ArrayA1[i] = i;
+		}
+
+		int result;
+
+		for (int j = 0; j < arraySize; j++){
+			result = BinarySearch.binarySearch(ArrayA1, ArrayA1[j]);
+			assertEquals(j, result);
+		}
+	}
+
+	/*
+	 * Ensure searching still work when array size is as small as 1.
+	 */
 	@Test
 	public void testSizeOneArray() {
-		int[] bb = {1};
-		int result;
-		
-		for (int i = 0; i < bb.length; i++){
-			result = BinarySearch.binarySearch(bb, bb[i]);
-			assertEquals(i, result);
-		}
-		
-		bb = null;
+		testArraySizeHelper(1);	
 	}
-	
+
+	/*
+	 * Ensure searching still work when array size is 2.
+	 */
 	@Test
 	public void testSizeTwoArray() {
-		int[] bb = {1,2};
-		int result;
-		
-		for (int i = 0; i < bb.length; i++){
-			result = BinarySearch.binarySearch(bb, bb[i]);
-			assertEquals(i, result);
-		}
-		
-		bb = null;
+		testArraySizeHelper(2);
 	}
 
+	/*
+	 * Ensure searching still work when array size is 3.
+	 */
 	@Test
 	public void testSizeThreeArray() {
-		int[] bb = {1,2,3};
-		int result;
-		
-		for (int i = 0; i < bb.length; i++){
-			result = BinarySearch.binarySearch(bb, bb[i]);
-			assertEquals(i, result);
-		}
-		
-		bb = null;
+		testArraySizeHelper(3);
 	}
 
+	/*
+	 * Ensure searching still work when array size is 4.
+	 */
 	@Test
 	public void testSizeFourArray() {
-		int[] bb = {1,2,3,4};
-		int result;
-		
-		for (int i = 0; i < bb.length; i++){
-			result = BinarySearch.binarySearch(bb, bb[i]);
-			assertEquals(i, result);
-		}
-		
-		bb = null;
+		testArraySizeHelper(4);
 	}
-	
+
+	/*
+	 * Ensure searching still work when array size is 5.
+	 */
 	@Test
 	public void testSizeFiveArray() {
-		int[] bb = {1,2,3,4,5};
-		int result;
-		
-		for (int i = 0; i < bb.length; i++){
-			result = BinarySearch.binarySearch(bb, bb[i]);
-			assertEquals(i, result);
-		}
-		
-		bb = null;
+		testArraySizeHelper(5);
 	}
 
 }

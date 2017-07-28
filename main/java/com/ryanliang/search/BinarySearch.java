@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Ryan L.
+ */
+
 package com.ryanliang.search;
 
 public class BinarySearch {
@@ -7,8 +12,12 @@ public class BinarySearch {
     	int high = a.length - 1;
 
     	while (low <= high) {
+    		//If the sum of low+high is greater than (2^31)-1 or 2,147,483,647 or Integer.MAX_VALUE, the sum overflows to a negative value.  
+    		//The result of a negative value divided by 2 causes ArrayIndexOutOfBoundsException to be throwing for a[mid]. 
+    		
     		//int mid = (low + high) / 2;
-    		int mid = low + ((high - low) / 2);
+    		
+    		int mid = low + ((high - low) / 2);	//This line fixes the overflow issue.
     		int midVal = a[mid];
 
     		if (midVal < key)
@@ -21,19 +30,5 @@ public class BinarySearch {
     	return -(low + 1);  // key not found.
 
     }
-    
-	public static void main(String[] args) {
-		
-        int [] aa = {2, 45, 101, 234, 754, 1000, 1231};
-
-        for (int i=0; i < aa.length; i++)
-        	System.out.println("Binary search of key " + aa[i] + " is found on index: " + binarySearch(aa, aa[i])); 
-        
-        System.out.println("Binary search of 0 is found on index: " + binarySearch(aa, 0));
-        System.out.println("Binary search of 5 is found on index: " + binarySearch(aa, 5));
-        System.out.println("Binary search of 222 is found on index: " + binarySearch(aa, 222));
-        System.out.println("Binary search of 1100 is found on index: " + binarySearch(aa, 1100));
-        System.out.println("Binary search of 5555 is found on index: " + binarySearch(aa, 5555));
-	}
 
 }
